@@ -11,7 +11,7 @@ OPTIONS = {
         'CFBundleVersion': '1.0.0',
         'CFBundleIdentifier': 'com.yourname.jjunapp',
     },
-    'iconfile': 'icon.icns',  # ❌ 아이콘 파일이 없으면 이 줄은 지워도 됩니다.
+    # 'iconfile': 'icon.icns',  # ❌ 아이콘 파일이 없으면 이 줄은 지워도 됩니다.
 }
 
 setup(
