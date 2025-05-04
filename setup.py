@@ -9,6 +9,7 @@ OPTIONS = {
         'datetime', 'pytz', 'unicodedata', 'cmath'
     ],
     'packages': ['pandas', 'openpyxl', 'numpy', 'dateutil'],
+    'excludes': ['tkinter'],  # 충돌 방지용
     'plist': {
         'CFBundleName': '쭌파일변환기',
         'CFBundleDisplayName': '쭌파일변환기',
