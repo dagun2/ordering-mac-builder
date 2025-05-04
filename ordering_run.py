@@ -55,7 +55,9 @@ try:
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     filename = f"쭌_{timestamp}.xlsx"
     save_path = os.path.join(base_dir, filename)
-    df_reordered.to_excel(save_path, index=False)
+    # xlsxwriter 엔진으로 저장
+    with pd.ExcelWriter(save_path, engine="xlsxwriter") as writer:
+        df_reordered.to_excel(writer, index=False)
     log += f"✅ 쭌 파일 저장 완료: {filename}\n"
 
 except Exception as e:
