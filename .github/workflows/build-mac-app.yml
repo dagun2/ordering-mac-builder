@@ -1,4 +1,4 @@
-name: Build macOS App and Zip
+name: Build macOS App and Release
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-mac-app:
+  build:
     runs-on: macos-latest
 
     steps:
@@ -20,19 +20,21 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip3 install py2app pandas openpyxl
+          pip install py2app pandas openpyxl
 
-      - name: Build .app using py2app
-        run: |
-          python3 setup.py py2app
+      - name: Build app
+        run: python3 setup.py py2app
 
-      - name: Zip the .app
+      - name: Zip the app
         run: |
           cd dist
           zip -r 발주자동기입기.zip 발주자동기입기.app
 
-      - name: Upload ZIP artifact
-        uses: actions/upload-artifact@v2
+      - name: Create GitHub Release and Upload
+        uses: softprops/action-gh-release@v1
         with:
-          name: 발주자동기입기_mac
-          path: dist/발주자동기입기.zip
+          name: 발주자동기입기 자동 릴리스
+          tag_name: v1.0.${{ github.run_number }}
+          files: dist/발주자동기입기.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
