@@ -6,7 +6,7 @@ DATA_FILES = []
 OPTIONS = {
     'argv_emulation': True,
     'includes': [
-        'datetime', 'pytz', 'unicodedata',
+        'datetime', 'pytz', 'unicodedata', 'cmath',
         'pandas._libs.tslibs.timestamps',
         'pandas._libs.tslibs.nattype',
         'pandas._libs.tslibs.timezones',
