@@ -22,6 +22,10 @@ jobs:
           python3 -m pip install --upgrade pip
           pip install py2app pandas openpyxl
 
+      - name: Clean old build
+        run: |
+          rm -rf build dist *.egg-info
+
       - name: Build app
         run: python3 setup.py py2app
 
