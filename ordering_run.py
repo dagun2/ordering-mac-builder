@@ -30,9 +30,9 @@ try:
         print(f"❌ '{today_prefix}'일자 기준 '플레이오토 파일(토글형식)'을 현재 폴더에서 찾을 수 없습니다.")
         sys.exit()
 
-     print(f"✅ 파일 읽기 완료: {os.path.basename(file_to_read)}")
+    print(f"✅ 파일 읽기 완료: {os.path.basename(file_to_read)}")
     playauto_df = pd.read_excel(file_to_read)
-     print(f"😎 쭌 파일로 변환 중입니다...")
+    print(f"😎 쭌 파일로 변환 중입니다...")
 
     # 열 정리
     df_reordered = playauto_df[[
@@ -55,7 +55,7 @@ try:
     save_path = os.path.join(base_dir, filename)
     df_reordered.to_excel(save_path, index=False)
 
-     print(f"✅ 쭌 파일 저장 완료: {filename}")
+    print(f"✅ 쭌 파일 저장 완료: {filename}")
 
 except Exception as e:
      print(f"\n❌ 오류 발생: {str(e)}")
