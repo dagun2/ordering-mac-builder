@@ -19,7 +19,7 @@ OPTIONS = {
         'CFBundleShortVersionString': '1.0.0',
         'NSHighResolutionCapable': True,
     },
-    'iconfile': 'icon.icns',  # 아이콘 파일 필요 시 사용, 없으면 제거 가능
+    #'iconfile': 'icon.icns',  # 아이콘 파일 필요 시 사용, 없으면 제거 가능
 }
 
 setup(
