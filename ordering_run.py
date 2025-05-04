@@ -10,7 +10,9 @@ def get_base_dir():
         return os.path.dirname(os.path.abspath(__file__))
 
 # 실행 시작
-log = ""
+print("현재 base_dir:", base_dir)
+print("존재하는 파일들:", os.listdir(base_dir))
+
 
 try:
     base_dir = get_base_dir()
@@ -28,9 +30,9 @@ try:
         print(f"❌ '{today_prefix}'일자 기준 '플레이오토 파일(토글형식)'을 현재 폴더에서 찾을 수 없습니다.")
         sys.exit()
 
-    log += f"✅ 파일 읽기 완료: {os.path.basename(file_to_read)}\n"
+     print(f"✅ 파일 읽기 완료: {os.path.basename(file_to_read)}")
     playauto_df = pd.read_excel(file_to_read)
-    log += "😎 쭌 파일로 변환 중입니다...\n"
+     print(f"😎 쭌 파일로 변환 중입니다...")
 
     # 열 정리
     df_reordered = playauto_df[[
@@ -53,11 +55,10 @@ try:
     save_path = os.path.join(base_dir, filename)
     df_reordered.to_excel(save_path, index=False)
 
-    log += f"✅ 쭌 파일 저장 완료: {filename}"
+     print(f"✅ 쭌 파일 저장 완료: {filename}")
 
 except Exception as e:
-    log += f"\n❌ 오류 발생: {str(e)}"
+     print(f"\n❌ 오류 발생: {str(e)}")
 
-# 로그 출력
-print(log)
+
 # input("종료하려면 Enter 키를 누르세요...")
