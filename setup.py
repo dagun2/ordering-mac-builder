@@ -1,16 +1,17 @@
 from setuptools import setup
 
-APP = ['ordering_run.py']  # 메인 파이썬 파일명
+APP = ['ordering_run.py']
 DATA_FILES = []
+
 OPTIONS = {
     'argv_emulation': True,
     'includes': [
-        'cmath', 'datetime', 'pytz',
+        'datetime', 'pytz', 'unicodedata',
         'pandas._libs.tslibs.timestamps',
         'pandas._libs.tslibs.nattype',
-        'pandas._libs.tslibs.timezones'
+        'pandas._libs.tslibs.timezones',
     ],
-    'packages': ['pandas', 'openpyxl'],
+    'packages': ['pandas', 'openpyxl', 'numpy', 'dateutil'],
     'plist': {
         'CFBundleName': '쭌파일변환기',
         'CFBundleDisplayName': '쭌파일변환기',
@@ -19,7 +20,7 @@ OPTIONS = {
         'CFBundleShortVersionString': '1.0.0',
         'NSHighResolutionCapable': True,
     },
-    #'iconfile': 'icon.icns',  # 아이콘 파일 필요 시 사용, 없으면 제거 가능
+    # 'iconfile': 'icon.icns',
 }
 
 setup(
