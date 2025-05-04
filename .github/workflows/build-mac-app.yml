@@ -32,7 +32,7 @@ jobs:
           zip -r 발주자동기입기.zip 발주자동기입기.app
 
       - name: Upload ZIP artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: 발주자동기입기_mac
           path: dist/발주자동기입기.zip
