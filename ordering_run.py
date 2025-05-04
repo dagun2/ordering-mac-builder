@@ -5,7 +5,8 @@ from datetime import datetime
 
 def get_base_dir():
     if getattr(sys, 'frozen', False):
-        return os.path.dirname(sys.executable)
+        # .app/Contents/MacOS => .app => 상위 폴더로 이동
+        return os.path.dirname(os.path.dirname(os.path.dirname(sys.executable)))
     else:
         return os.path.dirname(os.path.abspath(__file__))
 
