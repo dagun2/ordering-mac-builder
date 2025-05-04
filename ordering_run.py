@@ -9,13 +9,12 @@ def get_base_dir():
     else:
         return os.path.dirname(os.path.abspath(__file__))
 
-# 실행 시작
-print("현재 base_dir:", base_dir)
-print("존재하는 파일들:", os.listdir(base_dir))
-
-
 try:
     base_dir = get_base_dir()
+    # 실행 시작
+    print("현재 base_dir:", base_dir)
+    print("존재하는 파일들:", os.listdir(base_dir))
+
     today_prefix = datetime.now().strftime("%Y%m%d")
     file_to_read = None
 
