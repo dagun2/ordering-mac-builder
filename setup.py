@@ -5,12 +5,12 @@ DATA_FILES = []
 OPTIONS = {
     'argv_emulation': True,
     'includes': [
-        'cmath', 'datetime', 'pytz',
+        'cmath', 'datetime', 'pytz', 'tkinter',
         'pandas._libs.tslibs.timestamps',
         'pandas._libs.tslibs.nattype',
         'pandas._libs.tslibs.timezones'
     ],
-    'packages': ['pandas', 'openpyxl'],
+    'packages': ['pandas', 'openpyxl', 'tkinter'],
     'plist': {
         'CFBundleName': '쭌파일변환기',
         'CFBundleDisplayName': '쭌파일변환기',
