@@ -2,20 +2,12 @@ import os
 import sys
 import pandas as pd
 from datetime import datetime
-import tkinter as tk
-from tkinter import messagebox
 
 def get_base_dir():
     if getattr(sys, 'frozen', False):
         return os.path.dirname(sys.executable)
     else:
         return os.path.dirname(os.path.abspath(__file__))
-
-# 메시지 팝업 함수
-def show_popup(msg):
-    root = tk.Tk()
-    root.withdraw()
-    messagebox.showinfo("알림", msg)
 
 # 실행 시작
 log = ""
@@ -33,7 +25,7 @@ try:
 
     # 없으면 종료
     if not file_to_read:
-        show_popup(f"❌ '{today_prefix}'일자 기준 '플레이오토 파일(토글형식)'을 현재 폴더에서 찾을 수 없습니다.")
+        print(f"❌ '{today_prefix}'일자 기준 '플레이오토 파일(토글형식)'을 현재 폴더에서 찾을 수 없습니다.")
         sys.exit()
 
     log += f"✅ 파일 읽기 완료: {os.path.basename(file_to_read)}\n"
@@ -66,5 +58,6 @@ try:
 except Exception as e:
     log += f"\n❌ 오류 발생: {str(e)}"
 
-# 최종 메시지 출력
-show_popup(log)
+# 로그 출력
+print(log)
+# input("종료하려면 Enter 키를 누르세요...")
