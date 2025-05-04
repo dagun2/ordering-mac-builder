@@ -2,9 +2,10 @@ import os
 import sys
 import pandas as pd
 from datetime import datetime
+import unicodedata
 
 def get_base_dir():
-    # 실행파일 또는 스크립트 기준 디렉토리 반환
+    # 실행파일이 .app으로 패키징된 경우
     if getattr(sys, 'frozen', False):
         return os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../../../"))
     else:
@@ -16,20 +17,15 @@ try:
     base_dir = get_base_dir()
     log += f"현재 base_dir: {base_dir}\n"
     today_prefix = datetime.now().strftime("%Y%m%d")
-
-    for fname in os.listdir(base_dir):
-        print("▶ 검사 중:", fname)
-        if fname.startswith(f"토글형식_{today_prefix}") and fname.endswith(".xlsx"):
-            print("✅ 조건 만족!")
-            file_to_read = os.path.join(base_dir, fname)
-            break
-
-
-    # 플레이오토 엑셀 찾기
     file_to_read = None
+
+    # macOS 한글 파일명 대응 (NFD → NFC)
     for fname in os.listdir(base_dir):
-        if fname.startswith(f"토글형식_{today_prefix}") and fname.endswith(".xlsx"):
+        normalized_name = unicodedata.normalize("NFC", fname)
+        log += f"▶ 검사 중: {normalized_name}\n"
+        if normalized_name.startswith(f"토글형식_{today_prefix}") and normalized_name.endswith(".xlsx"):
             file_to_read = os.path.join(base_dir, fname)
+            log += "✅ 조건 만족!\n"
             break
 
     if not file_to_read:
@@ -56,7 +52,8 @@ try:
     df_reordered["내품수량"] = playauto_df["주문수량"] * playauto_df["옵션"]
 
     # 저장
-    filename = f"쭌_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f"쭌_{timestamp}.xlsx"
     save_path = os.path.join(base_dir, filename)
     df_reordered.to_excel(save_path, index=False)
     log += f"✅ 쭌 파일 저장 완료: {filename}\n"
@@ -66,10 +63,10 @@ except Exception as e:
 
 # 로그 저장
 log_filename = f"쭌_{datetime.now().strftime('%Y%m%d_%H%M%S')}_log.txt"
-log_path = os.path.join(get_base_dir(), log_filename)
+log_path = os.path.join(base_dir, log_filename)
 with open(log_path, "w", encoding="utf-8") as f:
     f.write(log)
 
-# Mac용 자동 로그 파일 열기
+# macOS 자동 로그 열기
 # if sys.platform == "darwin":
-#     os.system(f"open {log_path}")
+#     os.system(f"open '{log_path}'")
