@@ -3,7 +3,7 @@ name: Build macOS App and Zip
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # 수동 실행 버튼도 활성화
+  workflow_dispatch:
 
 jobs:
   build-mac-app:
@@ -32,7 +32,7 @@ jobs:
           zip -r 발주자동기입기.zip 발주자동기입기.app
 
       - name: Upload ZIP artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: 발주자동기입기_mac
           path: dist/발주자동기입기.zip
