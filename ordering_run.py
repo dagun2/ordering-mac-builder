@@ -6,7 +6,7 @@ from datetime import datetime
 def get_base_dir():
     # 실행파일 또는 스크립트 기준 디렉토리 반환
     if getattr(sys, 'frozen', False):
-        return os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../../"))
+        return os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../../../"))
     else:
         return os.path.dirname(os.path.abspath(__file__))
 
