@@ -14,7 +14,7 @@ OPTIONS = {
     'plist': {
         'CFBundleName': '쭌파일변환기',
         'CFBundleDisplayName': '쭌파일변환기',
-        'CFBundleIdentifier': 'com.yourdomain.jjunconverter',
+        'CFBundleIdentifier': 'com.midnightaxi.jjunconverter',
         'CFBundleVersion': '1.0.0',
         'CFBundleShortVersionString': '1.0.0',
         'NSHighResolutionCapable': True,
