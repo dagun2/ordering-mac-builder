@@ -17,6 +17,14 @@ try:
     log += f"현재 base_dir: {base_dir}\n"
     today_prefix = datetime.now().strftime("%Y%m%d")
 
+    for fname in os.listdir(base_dir):
+        print("▶ 검사 중:", fname)
+        if fname.startswith(f"토글형식_{today_prefix}") and fname.endswith(".xlsx"):
+            print("✅ 조건 만족!")
+            file_to_read = os.path.join(base_dir, fname)
+            break
+
+
     # 플레이오토 엑셀 찾기
     file_to_read = None
     for fname in os.listdir(base_dir):
