@@ -28,13 +28,13 @@ jobs:
       - name: Zip the app
         run: |
           cd dist
-          zip -r 발주자동기입기.zip 발주자동기입기.app
+          zip -r 쭌파일변환기.zip 쭌파일변환기.app
 
       - name: Create GitHub Release and Upload
         uses: softprops/action-gh-release@v1
         with:
-          name: 발주자동기입기 자동 릴리스
+          name: 쭌파일변환기 자동 릴리스
           tag_name: v1.0.${{ github.run_number }}
-          files: dist/발주자동기입기.zip
+          files: dist/쭌파일변환기.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
