@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 from datetime import datetime
 import unicodedata
+import traceback
 
 def get_base_dir():
     # 실행파일이 .app으로 패키징된 경우
@@ -13,6 +14,7 @@ def get_base_dir():
 
 # 실행 시작
 log = ""
+error_log = ""
 try:
     base_dir = get_base_dir()
     log += f"현재 base_dir: {base_dir}\n"
@@ -55,18 +57,27 @@ try:
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     filename = f"쭌_{timestamp}.xlsx"
     save_path = os.path.join(base_dir, filename)
-    df_reordered.to_excel(save_path, index=False, sheet_name="이지_업로드" , engine="xlsxwriter")
+    df_reordered.to_excel(save_path, index=False, sheet_name="이지_업로드", engine="xlsxwriter")
     log += f"✅ 쭌 파일 저장 완료: {filename}\n"
 
 except Exception as e:
-    log += f"\n❌ 오류 발생: {str(e)}\n"
+    error_log += f"\n❌ 오류 발생: {str(e)}\n"
+    error_log += traceback.format_exc()
 
-# 로그 저장
-log_filename = f"쭌_{datetime.now().strftime('%Y%m%d_%H%M%S')}_log.txt"
-log_path = os.path.join(base_dir, log_filename)
+# 로그 저장 (홈 디렉토리)
+timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+log_path = os.path.expanduser(f"~/쭌_{timestamp}_log.txt")
+
 with open(log_path, "w", encoding="utf-8") as f:
     f.write(log)
 
+# 에러 로그 저장 (있을 경우만)
+if error_log:
+    error_log_path = os.path.expanduser("~/ordering_app_error_log.txt")
+    with open(error_log_path, 'a', encoding="utf-8") as f:
+        f.write(f"\n[{timestamp}] 에러 발생 로그\n")
+        f.write(error_log)
+
 # macOS 자동 로그 열기
-# if sys.platform == "darwin":
-#     os.system(f"open '{log_path}'")
+if sys.platform == "darwin":
+    os.system(f"open '{log_path}'")
