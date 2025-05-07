@@ -4,7 +4,9 @@ APP = ['ordering_run.py']
 DATA_FILES = []
 
 OPTIONS = {
-    'argv_emulation': True,
+    'argv_emulation': False
+    'emulate_shell_environment': True,
+    'redirect_stdout_to_asl': True,
     'includes': [
         'datetime', 'pytz', 'unicodedata', 'cmath'
     ],
