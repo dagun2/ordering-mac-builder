@@ -67,10 +67,24 @@ try:
         except:
             option_val = 1
 
-        if len(item_names) == 3:
+        # if len(item_names) == 3:
+        #     multipliers = [3, 2, 1]
+        # elif len(item_names) == 2:
+        #     multipliers = [option_val, 1]
+        # else:
+        #     row["내품수량"] = option_val * order_qty
+        #     expanded_rows.append(row)
+        #     continue
+
+
+        num_items = len(item_names)
+
+        if num_items == 3:
             multipliers = [3, 2, 1]
-        elif len(item_names) == 2:
+        elif num_items == 2:
             multipliers = [option_val, 1]
+        elif num_items >= 4:
+            multipliers = [option_val] * (num_items - 1) + [1]
         else:
             row["내품수량"] = option_val * order_qty
             expanded_rows.append(row)
