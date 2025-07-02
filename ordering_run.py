@@ -6,7 +6,6 @@ import unicodedata
 import traceback
 
 def get_base_dir():
-    # .app으로 패키징된 경우
     if getattr(sys, 'frozen', False):
         return os.path.abspath(os.path.join(os.path.dirname(sys.executable), "../../../"))
     else:
@@ -21,7 +20,7 @@ try:
     file_to_read = None
     log += f"[경로] base_dir: {base_dir}\n"
 
-    # 파일 탐색 (한글 유니코드 정규화)
+    # 파일 탐색
     for fname in os.listdir(base_dir):
         normalized_name = unicodedata.normalize("NFC", fname)
         log += f"🔍 검사 중: {normalized_name}\n"
@@ -51,7 +50,7 @@ try:
 
     df_reordered["옵션"] = playauto_df["옵션"]
 
-    # 품목 분할 및 수량 분배 처리
+    # 분배 로직
     expanded_rows = []
 
     for _, row in df_reordered.iterrows():
@@ -67,33 +66,22 @@ try:
         except:
             option_val = 1
 
-        # if len(item_names) == 3:
-        #     multipliers = [3, 2, 1]
-        # elif len(item_names) == 2:
-        #     multipliers = [option_val, 1]
-        # else:
-        #     row["내품수량"] = option_val * order_qty
-        #     expanded_rows.append(row)
-        #     continue
-
-
         num_items = len(item_names)
 
-        if num_items == 3:
-            multipliers = [3, 2, 1]
-        elif num_items == 2:
-            multipliers = [option_val, 1]
-        elif num_items >= 4:
-            multipliers = [option_val] * (num_items - 1) + [1]
-        else:
-            row["내품수량"] = option_val * order_qty
+        # 1개인 경우: 내품수량 * 옵션값
+        if num_items == 1:
+            row["내품수량"] = order_qty * option_val
             expanded_rows.append(row)
             continue
 
-        for item_name, mul in zip(item_names, multipliers):
+        # 2개 이상: 마지막 품목은 1, 나머지는 옵션값 * 내품수량
+        for i, item_name in enumerate(item_names):
             new_row = row.copy()
             new_row["품목명"] = item_name
-            new_row["내품수량"] = mul * order_qty
+            if i == len(item_names) - 1:
+                new_row["내품수량"] = 1
+            else:
+                new_row["내품수량"] = order_qty * option_val
             expanded_rows.append(new_row)
 
     df_final = pd.DataFrame(expanded_rows)
